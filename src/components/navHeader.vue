@@ -36,9 +36,9 @@
 </script>
 
 <style lang="css" scoped>
-	
+	/*
 	div.mui-navbar-inner.mui-bar.mui-bar-nav.mui-navbar-center {
-		background: #37363b;		
+		background: #37363b;	
 	}
-	.mui-pull-right{color:#fff;}
+	.mui-pull-right{color:#fff;}*/
 </style>

@@ -7,7 +7,8 @@ Vue.use(VueRouter)
 /*  配置路由规则 */
 const map = [
 
-	{path:'/index',redirect: '/'},	//重定向
+	/* test 页面 */
+	{path:'/index',redirect: '/'},
 	{path:'/',component:require('./views/test/index')},
 	{path:'/order',component:require('./views/test/order'),children:[{path:'/form',component:require('./views/test/form')}]},			
 	{path:'/card',component:require('./views/test/card')},
@@ -19,8 +20,13 @@ const map = [
 	{path:'/history',component:require('./views/history/index')},
 
 	/* QQ号码测今日吉凶 */
-	{path:'/qq',component:require('./views/qq/index')}
+	{path:'/qq',component:require('./views/qq/index')},
 
+	/* 新华字典 */
+	{path:'/dictionary',component:require('./views/dictionary/index')},
+
+	/* 星座运势 */
+	{path:'/astro',component:require('./views/astro/index'),children:[{path:':consName',component:require('./views/astro/info')}]}
 ]
 
 

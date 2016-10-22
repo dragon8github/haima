@@ -51,6 +51,7 @@ export default {
 			},
 			search_qq () {
 				let self = this;
+				if(this.word === '') return false;
 				var request = new XMLHttpRequest();
 				request.open('GET', `http://localhost:8090?qq=${this.qq}`, true);
 				request.onload = function() { 
@@ -69,18 +70,23 @@ export default {
 				    console.log("error");
 				};
 				request.send();
+				self.setDate();
+			},
+			setDate () {
+				let self = this;
+				let date = new Date();
+				let year = date.getFullYear();
+				let money = money = date.getMonth() + 1;
+				let day = day = date.getDate();
+				let hour = date.getHours();
+		        let minute = date.getMinutes();
+		        let week = this.conversion(date.getDay()); 
+
+		        self.DateStr = `${year}-${money}-${day} ${hour}:${minute} 星期${week}`
 			}
 	},
 	created () {
-		let date = new Date();
-		let year = date.getFullYear();
-		let money = money = date.getMonth() + 1;
-		let day = day = date.getDate();
-		let hour = date.getHours();
-        let minute = date.getMinutes();
-        let week = this.conversion(date.getDay()); 
-
-        self.DateStr = `${year}-${money}-${day} ${hour}:${week} 星期${week}` // 2016-06-30 15:30
+		
 	}
 }
 </script>

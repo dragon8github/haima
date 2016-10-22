@@ -2,6 +2,7 @@
 require('css/mui.min.css') 
 require('ico')
 require('css/common.css')
+require('css/router.css') 
 
 
 import Vue from 'vue'
@@ -24,5 +25,6 @@ const app = new Vue({
 
 window.$ = zepto   					   //zepto
 window.mui = require('js/mui.min.js')  //UI框架的核心js
+window.layer = require('assets/layer_mobile/layer');
 window.router = router;				   //路由文件
 window.Velocity = Velocity;

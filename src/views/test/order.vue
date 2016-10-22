@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="container " >
+		<div class="container">
 			<header class="app-header">
 				<nav-header :_title="mytitle" :_left="myleft" class="_effect" :class="{'_effect--50':decline}" ></nav-header>
 			</header>
@@ -142,7 +142,7 @@
 
 <script>
  import navHeader from 'components/navHeader'
- import methods from 'methods' 
+ import {beforeEnter,enter,leave} from 'methods' 
  export default {
  	data () {
  		return {
@@ -167,26 +167,7 @@
 	    route_pipe (b) {
 	    	this.decline = b;
 	    },
-		  
-		beforeEnter: function (el) {
-		     Velocity(el.querySelector("._content"),{translateX: "80%"},0);
-		     Velocity(el.querySelector("._title"),{translateX: "50%",opacity:0},0);
-		     Velocity(el.querySelector("._leftIco,_rightIco"),{opacity:0},0);
-		},
-		enter: function (el, done) {
-		    Velocity(el.querySelector("._content"),{translateX: "0%"},350,"ease");
-		    Velocity(el.querySelector("._title"),{translateX: "0%",opacity:1},350,"ease");
-			Velocity(el.querySelector("._leftIco,_rightIco"),{opacity:1},100); 
-			done();  //神坑，如果不加上这个的话，路由不会停止。一直保持在class-enter-active状态
-		},
-		leave: function (el, done) {
-		  	 Velocity(el.querySelector("._content"),{translateX: "100%"},350,"ease");
-		  	 Velocity(el.querySelector("._title"),{translateX: "50%",opacity:0},350,"ease");
-		     Velocity(el.querySelector("._leftIco,_rightIco"),{opacity:0},350,"ease");
-		  	 setTimeout(()=> {
-		  	 	done();  //神坑，如果不加上这个的话，路由不会停止。一直保持在class-leave-active状态,并且不会消失
-		  	 },200)
-		}
+		beforeEnter,enter,leave
  	},
  	components:{
  		navHeader
