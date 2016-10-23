@@ -1,19 +1,17 @@
 <template>
 	<div>
 		<div class="container">
-			<header class="app-header">
-				<nav-header :_title="mytitle"  class="_effect" :class="{'_effect--50':decline}" ></nav-header>
-			</header>
+			<nav-header :_title="mytitle" :_left="myleft" :_decline ="decline" ></nav-header>
 			<div class="mui-content _effect" :class="{'_effect--30':decline}">
 				<div class="astronav">
 					<router-link v-for="item in computedList" :to="item"></router-link>
 				</div>
 			</div>
-		<transition name="slide-fade"  v-on:before-enter="beforeEnter"
-									   v-on:enter="enter"
-									   v-on:leave="leave"
-		  	>
-				<router-view keep-alive></router-view>
+			<transition name="slide-fade"  v-on:before-enter="beforeEnter"
+										   v-on:enter="enter"
+										   v-on:leave="leave"
+			>
+					<router-view keep-alive></router-view>
 			</transition>
 		</div>
 	</div>
@@ -22,10 +20,10 @@
 <script>
  import navHeader from 'components/navHeader'
  import {beforeEnter,enter,leave} from 'methods' 
- console.log(enter)
 	export default {
 		data () {
 			return {
+				myleft: false,
 				decline:false,
 				mytitle : "星座运势",
 				items : ['白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座', '水瓶座', '双鱼座']

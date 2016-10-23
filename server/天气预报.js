@@ -6,7 +6,6 @@ const superagent = require('superagent');
 const open = require("open");
 
 const appId = "4c78786afc1db5675f848742a98fbd85";
-let cityname = "北京";
 let result = "";
 let port = 8090;
 
@@ -24,7 +23,7 @@ const onRequest = (req,res) => {
 
 
 http.createServer(onRequest).listen(port);  
-open(`http://localhost:${port}?cityname=${cityname}`);
+open(`http://localhost:${port}?cityname=北京`);
 console.log("Server Start!");
 
 /*

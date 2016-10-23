@@ -1,6 +1,6 @@
 <template>
-	<div>
-			<div class="mui-navbar-inner mui-bar mui-bar-nav mui-navbar-center">
+	<header class="app-header mui-navbar-inner mui-bar mui-bar-nav mui-navbar-center">
+			<div class="_effect" :class="{'_effect--50':_decline}">
 				<button type="button" v-show = "_left" class="_leftIco mui-left  mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
 					<router-link :to="backPath" class="mui-icon" :class="_lefticon">
 						
@@ -9,7 +9,7 @@
 				<h1 class="mui-center mui-title _title" v-text="_title">标题 </h1>
 				<a class="_rightIco mui-icon mui-pull-right"  v-show = "_right" :class="_righticon"></a>
 			</div>
-	</div>  
+	</header>  
 </template> 
 
 <script>
@@ -25,7 +25,9 @@
 			//左边的图标（只能是mui内置的）
 			_lefticon:{type:String,default:"mui-icon-left-nav"},
 			//右边的图标
-			_righticon:{type:String,default:"mui-icon-plusempty"}					
+			_righticon:{type:String,default:"mui-icon-plusempty"},	
+			//
+			_decline:{type:Boolean,default:false}				
 		},
 		computed: {
 		    ...mapGetters([
@@ -36,9 +38,5 @@
 </script>
 
 <style lang="css" scoped>
-	/*
-	div.mui-navbar-inner.mui-bar.mui-bar-nav.mui-navbar-center {
-		background: #37363b;	
-	}
-	.mui-pull-right{color:#fff;}*/
+
 </style>

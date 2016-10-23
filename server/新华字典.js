@@ -7,7 +7,6 @@ const superagent = require('superagent');
 const open = require("open");
 
 const appId = "82896f80be9bbad16df29eadf6a28a58";
-let word = "李";  
 let result = "";
 let port = 8090;
 
@@ -26,7 +25,7 @@ const onRequest = (req,res) => {
 
 
 http.createServer(onRequest).listen(port);  
-open(`http://localhost:${port}?word=${word}`);
+open(`http://localhost:${port}?word=李`);
 console.log("Server Start!");
 
 

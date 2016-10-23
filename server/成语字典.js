@@ -1,4 +1,3 @@
-/* 这个API有详情，稍后再做 */
 "use strict";
 const http = require('http');
 const url = require('url');
@@ -7,7 +6,6 @@ const superagent = require('superagent');
 const open = require("open");
 
 const appId = "c02104249b1ba5151c679054305e1551";
-let word = "张冠李戴";  
 let result = "";
 let port = 8090;
 
@@ -26,7 +24,7 @@ const onRequest = (req,res) => {
 
 
 http.createServer(onRequest).listen(port);  
-open(`http://localhost:${port}?word=${word}`);
+open(`http://localhost:${port}?word=张冠李戴`);
 console.log("Server Start!");
 
 /*

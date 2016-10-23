@@ -17,11 +17,14 @@ const onRequest = (req,res) => {
 
 	let subject = encodeURI(url.parse(req.url,true).query.subject);
 	let model = encodeURI(url.parse(req.url,true).query.model);
+
+
 	console.log(subject,model);
 	superagent.get('http://api2.juheapi.com/jztk/query?subject='+ subject +'&model='+ model +'&key=' + appId + '&testType=rand').end((err,response) => {
 			if(err) console.log(err);
 			result = response.text;
 	})
+
 	res.write(result);
 	res.end();
 }

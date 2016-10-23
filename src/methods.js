@@ -2,7 +2,7 @@ export const beforeEnter = (el) => {
 	 Velocity(el.querySelector("._content"),{translateX: "80%"},0);
      Velocity(el.querySelector("._title"),{translateX: "50%",opacity:0},0);
      Velocity(el.querySelector("._leftIco,_rightIco"),{opacity:0},0);
-}
+} 
 
 export const enter = (el,done) => {
 	Velocity(el.querySelector("._content"),{translateX: "0%"},350,"ease");
