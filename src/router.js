@@ -26,8 +26,11 @@ const map = [
 	{path:'/dictionary',component:require('./views/dictionary/index')},
 
 	/* 星座运势 */
-	{path:'/astro',component:require('./views/astro/index'),children:[{path:':consName',component:require('./views/astro/info')}]}
-]
+	{path:'/astro',component:require('./views/astro/index'),children:[{path:':consName',component:require('./views/astro/info')}]},
+
+	/* 天气预报 */
+	{path:'/weather',component:require('./views/weather/index')}
+]	
 
 
 /* 实例化路由 */

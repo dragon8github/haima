@@ -50,13 +50,13 @@
 
 								<div class="mui-col-sm-6 mui-col-xs-6" >
 									<li class="mui-table-view-cell">
-										总评：{{all}}
+										总评：{{ all }}
 									</li>
 								</div>
 
 							</div>
 							<div class="mui-card-footer">
-							[详解]：{{summary}}
+							[详解]：{{ summary }}
 							</div>
 						</div>
 				</div>
@@ -138,7 +138,7 @@
  }
 </script>
 
-<style>
+<style scoped>
 	.mui-table-view-cell{
 	    height: 55px;
 	    white-space: nowrap;
