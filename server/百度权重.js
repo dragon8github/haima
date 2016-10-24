@@ -9,19 +9,23 @@ const appId = "f496c599616017b2a435d98a58347a54";
 let result = "";
 let port = 8090;
 
-const onRequest = (req,res) => {
-	res.writeHead(200,{'Content-Type':'text/plain;charset=utf-8','Access-Control-Allow-Origin':"*"})
-	let domain = encodeURI(url.parse(req.url,true).query.domain);
-	superagent.get(`http://op.juhe.cn/baiduWeight/index?key=${appId}&domain=${domain}`).end((err,response) => {
-			if(err) console.log(err);
-			result = response.text;
-	})
-	res.write(result);
-	res.end();
+const onRequest = (req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain;charset=utf-8', 'Access-Control-Allow-Origin': "*" })
+    let domain = encodeURI(url.parse(req.url, true).query.domain);
+    if (req.url !== "/favicon.ico") {
+
+        superagent.get(`http://op.juhe.cn/baiduWeight/index?key=${appId}&domain=${domain}`).end((err, response) => {
+            if (err) console.log(err);
+            result = response.text;
+            res.write(result);
+            res.end();
+        })
+    }
+
 }
 
 
-http.createServer(onRequest).listen(port);  
+http.createServer(onRequest).listen(port);
 open(`http://localhost:${port}?domain=juhe.cn`);
 console.log("Server Start!");
 

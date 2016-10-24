@@ -53,6 +53,7 @@ export default {
 				let self = this;
 				if(this.word === '') return false;
 				var request = new XMLHttpRequest();
+				console.log(this.qq);
 				request.open('GET', `http://localhost:8090?qq=${this.qq}`, true);
 				request.onload = function() { 
 				  if (request.status >= 200 && request.status < 400) {

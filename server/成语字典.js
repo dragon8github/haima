@@ -9,21 +9,25 @@ const appId = "c02104249b1ba5151c679054305e1551";
 let result = "";
 let port = 8090;
 
-const onRequest = (req,res) => {
-	res.writeHead(200,{'Content-Type':'text/plain;charset=utf-8','Access-Control-Allow-Origin':"*"})
+const onRequest = (req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain;charset=utf-8', 'Access-Control-Allow-Origin': "*" })
 
-	let word = encodeURI(url.parse(req.url,true).query.word);
-	console.log(word);
-	superagent.get('http://v.juhe.cn/chengyu/query?key=' + appId + '&word=' + word).end((err,response) => {
-			if(err) console.log(err);
-			result = response.text;
-	})
-	res.write(result);
-	res.end();
+    let word = encodeURI(url.parse(req.url, true).query.word);
+    console.log(word);
+    if (req.url !== "/favicon.ico") {
+
+        superagent.get('http://v.juhe.cn/chengyu/query?key=' + appId + '&word=' + word).end((err, response) => {
+            if (err) console.log(err);
+            result = response.text;
+            res.write(result);
+            res.end();
+        })
+
+    }
 }
 
 
-http.createServer(onRequest).listen(port);  
+http.createServer(onRequest).listen(port);
 open(`http://localhost:${port}?word=张冠李戴`);
 console.log("Server Start!");
 

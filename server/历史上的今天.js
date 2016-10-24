@@ -16,13 +16,16 @@ const onRequest = (req,res) => {
 	res.writeHead(200,{'Content-Type':'text/plain;charset=utf-8','Access-Control-Allow-Origin':"*"})
 	money = encodeURI(url.parse(req.url,true).query.money);
 	day = encodeURI(url.parse(req.url,true).query.day);
-	superagent.get('http://api.juheapi.com/japi/toh?key='+appId+'&v=1.0&month='+money+'&day=' + day).end((err,response) => {
-			if(err) console.log(err);
-			result = response.text;
-	})
-	res.write(result);
-	res.end();
-
+    if(req.url!=="/favicon.ico") {
+    	superagent.get('http://api.juheapi.com/japi/toh?key='+appId+'&v=1.0&month='+money+'&day=' + day).end((err,response) => {
+    			 if(err) console.log(err);
+                console.log("response.text",response.text);
+                result = response.text; 
+                res.write(result);
+                result = "";
+                res.end();
+    	})
+    }
 }
 
 

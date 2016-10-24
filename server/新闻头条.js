@@ -1,4 +1,3 @@
-
 "use strict";
 const http = require('http');
 const url = require('url');
@@ -22,19 +21,23 @@ keji(科技),
 caijing(财经),
 shishang(时尚)
 */
- 
-const onRequest = (req,res) => {
-	res.writeHead(200,{'Content-Type':'text/plain;charset=utf-8','Access-Control-Allow-Origin':"*"})
-	let type = encodeURI(url.parse(req.url,true).query.type);
-	superagent.get(`http://v.juhe.cn/toutiao/index?type=${type}&key=${appId}`).end((err,response) => {
-			if(err) console.log(err);
-			result = response.text;
-	})
-	res.write(result);
-	res.end();
+
+const onRequest = (req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain;charset=utf-8', 'Access-Control-Allow-Origin': "*" })
+    let type = encodeURI(url.parse(req.url, true).query.type);
+    if (req.url !== "/favicon.ico") {
+
+        superagent.get(`http://v.juhe.cn/toutiao/index?type=${type}&key=${appId}`).end((err, response) => {
+            if (err) console.log(err);
+            result = response.text;
+            res.write(result);
+            res.end();
+        })
+
+    }
 }
 
 
-http.createServer(onRequest).listen(port);  
+http.createServer(onRequest).listen(port);
 open(`http://localhost:${port}?type=top`);
 console.log("Server Start!");

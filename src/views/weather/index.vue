@@ -119,6 +119,7 @@ export default {
     	},
     	getweather (city) {
     		let self = this;
+    		console.log(self.city);
     		$.ajax({
     			type:"get",
     			url:`http://localhost:8090?cityname=${self.city}`, 

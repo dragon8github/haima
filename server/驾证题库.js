@@ -7,30 +7,33 @@ const superagent = require('superagent');
 const open = require("open");
 
 const appId = "249733dc442c8b65ec1947efffb33e8f";
-let subject = "1";  //选择考试科目类型，1：科目1；4：科目4
-let model = 'c1';   //	驾照类型，可选择参数为：c1,c2,a1,a2,b1,b2；当subject=4时可省略
+let subject = "1"; //选择考试科目类型，1：科目1；4：科目4
+let model = 'c1'; //  驾照类型，可选择参数为：c1,c2,a1,a2,b1,b2；当subject=4时可省略
 let result = "";
 let port = 8090;
 
-const onRequest = (req,res) => {
-	res.writeHead(200,{'Content-Type':'text/plain;charset=utf-8','Access-Control-Allow-Origin':"*"})
+const onRequest = (req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain;charset=utf-8', 'Access-Control-Allow-Origin': "*" })
 
-	let subject = encodeURI(url.parse(req.url,true).query.subject);
-	let model = encodeURI(url.parse(req.url,true).query.model);
+    let subject = encodeURI(url.parse(req.url, true).query.subject);
+    let model = encodeURI(url.parse(req.url, true).query.model);
 
 
-	console.log(subject,model);
-	superagent.get('http://api2.juheapi.com/jztk/query?subject='+ subject +'&model='+ model +'&key=' + appId + '&testType=rand').end((err,response) => {
-			if(err) console.log(err);
-			result = response.text;
-	})
+    console.log(subject, model);
+    if (req.url !== "/favicon.ico") {
 
-	res.write(result);
-	res.end();
+        superagent.get('http://api2.juheapi.com/jztk/query?subject=' + subject + '&model=' + model + '&key=' + appId + '&testType=rand').end((err, response) => {
+            if (err) console.log(err);
+            result = response.text;
+            res.write(result);
+            res.end();
+        })
+    }
+
 }
 
 
-http.createServer(onRequest).listen(port);  
+http.createServer(onRequest).listen(port);
 open(`http://localhost:${port}?subject=${subject}&model=${model}`);
 console.log("Server Start!");
 

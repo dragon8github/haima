@@ -10,21 +10,23 @@ const appId = "9937bd625f16c26bed24daf312aa362d";
 let result = "";
 let port = 8090;
 
-const onRequest = (req,res) => {
-	res.writeHead(200,{'Content-Type':'text/plain;charset=utf-8','Access-Control-Allow-Origin':"*"})
+const onRequest = (req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain;charset=utf-8', 'Access-Control-Allow-Origin': "*" })
 
-	let consName = encodeURI(url.parse(req.url,true).query.consName);
-	console.log(consName);
-	superagent.get('http://web.juhe.cn:8080/constellation/getAll?consName=' + consName+'&type=today&key=' + appId).end((err,response) => {
-			if(err) console.log(err);
-			result = response.text;
-	})
-	res.write(result);
-	res.end();
+    let consName = encodeURI(url.parse(req.url, true).query.consName);
+    console.log(consName);
+    if (req.url !== "/favicon.ico") {
+        superagent.get('http://web.juhe.cn:8080/constellation/getAll?consName=' + consName + '&type=today&key=' + appId).end((err, response) => {
+            if (err) console.log(err);
+            result = response.text;
+            res.write(result);
+            res.end();
+        })
+    }
 }
 
 
-http.createServer(onRequest).listen(port);  
+http.createServer(onRequest).listen(port);
 open(`http://localhost:${port}?consName=白羊座`);
 console.log("Server Start!");
 
