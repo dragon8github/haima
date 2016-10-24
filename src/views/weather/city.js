@@ -1,4 +1,4 @@
-var cityData = [{
+export const cityData = [{
 	value: '110000',
 	text: '北京市',
 	children: [{

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<header class="mui-bar mui-bar-nav">
-			<button id="left" class="mui-btn  mui-btn-link  mui-pull-left"><span class="mui-icon mui-icon-location-filled"></span>东莞</button>
+			<button id="left" class="mui-btn  mui-btn-link  mui-pull-left" @click="getpick"><span class="mui-icon mui-icon-location-filled"></span>{{ city }}</button>
 			<h1 class="mui-title">天气预报</h1>
 			<button id="right" class="mui-btn  mui-btn-link  mui-pull-right" @click="getlife"><span class="mui-icon mui-icon-paperplane"></span>生活</button>
 		</header>
@@ -41,9 +41,13 @@
 
 
 <script>
+
+
+
 export default {
   data () {
     return {
+    	city:"北京",
     	weatherImage:require('./images/rain.png'),
     	day:['今天	','明天	','后天	'],
     	items:[],
@@ -61,28 +65,66 @@ export default {
     	getlife () {
     		//页面层
 		    layer.open({
-			    type: 1,
-			    content:`<div class="child_card">
-							<div class="mui-card-content ">
-								<div class="mui-row ">
-									<div class="mui-col-xs-12 ">
-										<ul class="mui-table-view ">
-											<li class="mui-table-view-cell "><i class="icon iconfont">&#xe60c;</i> 穿衣 [${this.life.chuanyi[0]}]：<p style="margin: 15px;    word-break: break-all;">${this.life.chuanyi[1]}</p></li>
-											<li class="mui-table-view-cell ">  <i class="icon iconfont">&#xe60a;</i> 感冒 [${this.life.ganmao[0]}]：<p style="margin: 15px;    word-break: break-all;">${this.life.ganmao[1]}</p></li>
-											<li class="mui-table-view-cell "><i class="icon iconfont">&#xe60d;</i> 运动 [${this.life.yundong[0]}]：<p style="margin: 15px;    word-break: break-all;">${this.life.yundong[1]}</p></li>
-											<li class="mui-table-view-cell "><i class="icon iconfont">&#xe609;</i> 空调 [${this.life.kongtiao[0]}]：<p style="margin: 15px;    word-break: break-all;">${this.life.kongtiao[1]}</p></li>
-											<li class="mui-table-view-cell "> <i class="icon iconfont">&#xe60b;</i> 紫外线 [${this.life.ziwaixian[0]}]：<p style="margin: 15px;    word-break: break-all;">${this.life.ziwaixian[1]}</p></li>
-										</ul>
+				    type: 1,
+				    content:`<div class="child_card">
+								<div class="mui-card-content ">
+									<div class="mui-row ">
+										<div class="mui-col-xs-12 ">
+											<div class="mui-col-xs-6" style="float:right;margin-top:20px;">
+												<i class="icon iconfont" style="padding-left:8px;">&#xe60c;</i> 穿衣 [${this.life.chuanyi[0]}]：<p style="margin: 15px;    word-break: break-all;">${this.life.chuanyi[1]}</p>
+											</div>	
+											<div class="mui-col-xs-6" style="float:right;margin-top:20px;">
+												 <i class="icon iconfont" style="padding-left:8px;">&#xe60a;</i> 感冒 [${this.life.ganmao[0]}]：<p style="margin: 15px;    word-break: break-all;">${this.life.ganmao[1]}</p>
+											</div>
+											<div class="mui-col-xs-6" style="float:right;margin-top:20px;">
+												<i class="icon iconfont" style="padding-left:8px;">&#xe60d;</i> 运动 [${this.life.yundong[0]}]：<p style="margin: 15px;    word-break: break-all;">${this.life.yundong[1]}</p>
+											</div>
+											<div class="mui-col-xs-6" style="float:right;margin-top:20px;">
+												<i class="icon iconfont" style="padding-left:8px;">&#xe609;</i> 空调 [${this.life.kongtiao[0]}]：<p style="margin: 15px;    word-break: break-all;">${this.life.kongtiao[1]}</p>
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
-						</div>`
-				,anim: 'up'
-   				,style: 'width:80%; -webkit-animation-duration: .5s; animation-duration: .5s;font-family: microsoft yahei;'
-   				,btn: '我知道了'
-   				,shadeClose: false 
-   				,title:`生活小贴士`  				
+							</div>`
+					,anim: 'up'
+	   				,style: 'width:90%;-webkit-animation-duration: .5s; animation-duration: .5s;font-family: microsoft yahei;border-radius:5px;'
+	   				,btn: '我知道了'
+	   				,shadeClose: false 
+	   				,title:[`生活小贴士`,'background-color: #FF4351; color:#fff;margin:0px']
+
+				});
+	    	},
+    	getpick () {
+    		var self = this;
+    		require('js/mui.picker.min.js');
+			require('js/mui.poppicker.js');
+			require('css/mui.picker.css');
+			require('css/mui.poppicker.css'); 
+
+			let cityData = require('./city').cityData;
+    		
+			var cityPicker = new mui.PopPicker({
+				layer: 2
 			});
+
+			cityPicker.setData(cityData);
+
+			cityPicker.show(function(items) {
+				self.city = items[1].text;
+				self.getweather('东莞')
+				//alert("你选择的城市是:" + items[0].text + " " + items[1].text);
+				//返回 false 可以阻止选择框的关闭
+				//return false;
+			});
+    	},
+    	getweather (city) {
+    		$.ajax({
+    			type:"get",
+    			url:`http://localhost:8090?cityname=${city}`, 
+    			success (data) {
+    				console.log(data);
+    			}
+    		})
     	}
   },
   created () {
@@ -97,31 +139,7 @@ export default {
     self.DateStr = `${year}-${money}-${day} ${hour}:${minute} 星期${week}`
 
 
-	var request = new XMLHttpRequest();
-	request.onloadstart = function(){
-		window.layer.open({type: 2,shadeClose: false,content: `<span style="color:#fff">加载中</span>`});
-	}
-	request.open('GET', `http://localhost:8090?cityname=揭阳`, true); 
-	request.onload = function() { 
-	  if (request.status >= 200 && request.status < 400) {
-	    var resp = request.responseText;
-	    var json = JSON.parse(resp).result.data.weather.splice(0,3); 
-	    console.log(json);
-	    self.life = JSON.parse(resp).result.data.life.info;
-	    self.items = json;
-	  } else {
-	    console.log("We reached our target server, but it returned an error");
-	  }
-	};
-	request.onloadend = function(){
-		setTimeout(() => {
-			window.layer.closeAll()
-		},1500)
-	}
-	request.onerror = function() {
-	    console.log("error");
-	};
-	request.send();
+    self.getweather('北京')
   }
 };
 </script>
