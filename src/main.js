@@ -3,6 +3,7 @@ require('css/mui.min.css')
 require('ico')
 require('css/common.css')
 require('css/router.css') 
+require('assets/layer_mobile/need/layer.css')
 
 
 import Vue from 'vue'
