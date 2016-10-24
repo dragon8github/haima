@@ -111,16 +111,17 @@ export default {
 
 			cityPicker.show(function(items) {
 				self.city = items[1].text;
-				self.getweather('东莞')
+				self.getweather()
 				//alert("你选择的城市是:" + items[0].text + " " + items[1].text);
 				//返回 false 可以阻止选择框的关闭
 				//return false;
 			});
     	},
     	getweather (city) {
+    		let self = this;
     		$.ajax({
     			type:"get",
-    			url:`http://localhost:8090?cityname=${city}`, 
+    			url:`http://localhost:8090?cityname=${self.city}`, 
     			success (data) {
     				console.log(data);
     			}
@@ -139,7 +140,7 @@ export default {
     self.DateStr = `${year}-${money}-${day} ${hour}:${minute} 星期${week}`
 
 
-    self.getweather('北京')
+    self.getweather()
   }
 };
 </script>

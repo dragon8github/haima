@@ -10,14 +10,12 @@ let result = "";
 const onRequest = (req,res) => {
 	res.writeHead(200,{'Content-Type':'text/plain;charset=utf-8','Access-Control-Allow-Origin':"*"})
 	 var cityname =  encodeURI(url.parse(req.url,true).query.cityname);
-     
+     // 谷歌浏览器
     if(req.url!=="/favicon.ico") {
     	superagent.get('http://op.juhe.cn/onebox/weather/query?cityname=' + cityname + '&key=' + appId).end((err,response) => {
     			if(err) console.log("err",err);
     			result = response.text;
-                console.log("cityname",cityname);
-                //console.log(req.url);
-               
+                console.info("··························我是华丽的风格线··························",result);               
     	})  
     }
     res.write(result);
