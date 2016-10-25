@@ -16,7 +16,6 @@ const onRequest = (req, res) => {
     let word = encodeURI(url.parse(req.url, true).query.word);
     console.log(word);
     if (req.url !== "/favicon.ico") {
-
         superagent.get('http://v.juhe.cn/xhzd/query?key=' + appId + '&word=' + word).end((err, response) => {
             if (err) console.log(err);
             result = response.text;

@@ -29,7 +29,13 @@ const map = [
 	{path:'/astro',component:require('./views/astro/index'),children:[{path:':consName',component:require('./views/astro/info')}]},
 
 	/* 天气预报 */
-	{path:'/weather',component:require('./views/weather/index')}
+	{path:'/weather',component:require('./views/weather/index')},
+
+	/* 笑话大全 */
+	{path:'/joke',component:require('./views/joke/index')},
+
+	/* 机器人 */
+	{path:'/robot',component:require('./views/robot/index')}
 ]	
 
 

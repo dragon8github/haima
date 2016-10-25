@@ -35,3 +35,8 @@ body,.mui-input-row label,::-webkit-input-placeholder{
 .mui-bar .mui-icon:active{
 	opacity: 1;
 }
+
+/* 上拉加载的兼容 */
+.mui-pull-bottom-pocket{
+	position:inherit;
+}

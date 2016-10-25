@@ -19,7 +19,7 @@ const onRequest = (req, res) => {
     if (req.url !== "/favicon.ico") {
         /* 最新笑话 */
         if (pic === 'undefined' && page != 'undefined' && pagesize != 'undefined') {
-            superagent.get(`http://japi.juhe.cn/joke/content/text.from?key=${appId}&page=1&pagesize=10`).end((err, response) => {
+            superagent.get(`http://japi.juhe.cn/joke/content/text.from?key=${appId}&page=${page}&pagesize=${pagesize}`).end((err, response) => {
                     if (err) console.log(err);
                     result = response.text;
                     res.write(result);
@@ -27,7 +27,7 @@ const onRequest = (req, res) => {
                 })
                 /* 最新趣图 */
         } else if (pic != 'undefined' && page != 'undefined' && pagesize != 'undefined') {
-            superagent.get(`http://japi.juhe.cn/joke/img/text.from?key=${appId}&page=1&pagesize=10`).end((err, response) => {
+            superagent.get(`http://japi.juhe.cn/joke/img/text.from?key=${appId}&page=${page}&pagesize=${pagesize}`).end((err, response) => {
                 if (err) console.log(err);
                 result = response.text;
                 res.write(result);

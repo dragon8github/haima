@@ -19,12 +19,12 @@ Vue.use(vueTap)
 fastclick.attach(document.body) 	   //解决手机端 click 点击延迟
 
 
-
 window.$ = zepto   					   //zepto
 window.router = router;				   //路由文件
 window.Velocity = Velocity;			   // 动画库
 window.mui = require('js/mui.min.js')  //UI框架的核心js
 window.layer = require('assets/layer_mobile/layer');
+
 
 
 const app = new Vue({

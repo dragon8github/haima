@@ -110,6 +110,7 @@ export default {
 			cityPicker.setData(cityData);
 
 			cityPicker.show(function(items) {
+				console.log(items);
 				self.city = items[1].text;
 				self.getweather()
 				//alert("你选择的城市是:" + items[0].text + " " + items[1].text);
@@ -119,12 +120,14 @@ export default {
     	},
     	getweather (city) {
     		let self = this;
-    		console.log(self.city);
     		$.ajax({
     			type:"get",
     			url:`http://localhost:8090?cityname=${self.city}`, 
     			success (data) {
-    				console.log(data);
+    				let json = JSON.parse(data).result.data;
+
+    				self.life = json.life.info;
+    				self.items = json.weather.splice(0,3);
     			}
     		})
     	}
