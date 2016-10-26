@@ -11,8 +11,12 @@ let port = 8090;
 
 const onRequest = (req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain;charset=utf-8', 'Access-Control-Allow-Origin': "*" })
+
+    let page = encodeURI(url.parse(req.url, true).query.page);
+    let pagesize = encodeURI(url.parse(req.url, true).query.pagesize);
+
     if (req.url !== "/favicon.ico") {
-        superagent.get(`http://v.juhe.cn/weixin/query?key=${appId}`).end((err, response) => {
+        superagent.get(`http://v.juhe.cn/weixin/query?key=${appId}&pno=${page}&ps=${pagesize}`).end((err, response) => {
             if (err) console.log(err);
             result = response.text;
             res.write(result);
@@ -23,5 +27,5 @@ const onRequest = (req, res) => {
 
 
 http.createServer(onRequest).listen(port);
-open(`http://localhost:${port}`);
+open(`http://localhost:${port}?pno=1&ps=20`);
 console.log("Server Start!");

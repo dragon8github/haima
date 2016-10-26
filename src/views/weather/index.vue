@@ -1,5 +1,6 @@
 <template>
 	<div>
+
 		<header class="mui-bar mui-bar-nav">
 			<button id="left" class="mui-btn  mui-btn-link  mui-pull-left" @click="getpick"><span class="mui-icon mui-icon-location-filled"></span>{{ city }}</button>
 			<h1 class="mui-title">天气预报</h1>
@@ -94,57 +95,49 @@ export default {
 
 				});
 	    	},
-    	getpick () {
-    		var self = this;
-    		require('js/mui.picker.min.js');
-			require('js/mui.poppicker.js');
-			require('css/mui.picker.css');
-			require('css/mui.poppicker.css'); 
+	    	getpick () {
+	    		var self = this;
+	    		require('js/mui.picker.min.js');
+				require('js/mui.poppicker.js');
+				require('css/mui.picker.css');
+				require('css/mui.poppicker.css'); 
 
-			let cityData = require('./city').cityData;
-    		
-			var cityPicker = new mui.PopPicker({
-				layer: 2
-			});
-
-			cityPicker.setData(cityData);
-
-			cityPicker.show(function(items) {
-				console.log(items);
-				self.city = items[1].text;
-				self.getweather()
-				//alert("你选择的城市是:" + items[0].text + " " + items[1].text);
-				//返回 false 可以阻止选择框的关闭
-				//return false;
-			});
-    	},
-    	getweather (city) {
-    		let self = this;
-    		$.ajax({
-    			type:"get",
-    			url:`http://localhost:8090?cityname=${self.city}`, 
-    			success (data) {
-    				let json = JSON.parse(data).result.data;
-
-    				self.life = json.life.info;
-    				self.items = json.weather.splice(0,3);
-    			}
-    		})
-    	}
+				let cityData = require('./city').cityData;    		
+				var cityPicker = new mui.PopPicker({
+					layer: 2
+				});
+				cityPicker.setData(cityData);
+				cityPicker.show(function(items) {
+					self.city = items[1].text;
+					self.getweather();
+				});
+	    	},
+	    	getweather () {
+	    		let self = this;
+	    		$.ajax({
+	    			type:"get",
+	    			url:`http://localhost:8090?cityname=${self.city}`, 
+	    			success (data) {
+	    				let json = JSON.parse(data).result.data;
+	    				self.life = json.life.info;
+	    				self.items = json.weather.splice(0,3);
+	    			}
+	    		})
+	    	},
+	    	getTime () {
+				let date = new Date();
+				let year = date.getFullYear();
+				let money = money = date.getMonth() + 1;
+				let day = day = date.getDate();
+				let hour = date.getHours();
+			    let minute = date.getMinutes();
+			    let week = this.conversion(date.getDay()); 
+			    this.DateStr = `${year}-${money}-${day} ${hour}:${minute} 星期${week}`
+	    	}
   },
   created () {
-	let self = this;
-	let date = new Date();
-	let year = date.getFullYear();
-	let money = money = date.getMonth() + 1;
-	let day = day = date.getDate();
-	let hour = date.getHours();
-    let minute = date.getMinutes();
-    let week = this.conversion(date.getDay()); 
-    self.DateStr = `${year}-${money}-${day} ${hour}:${minute} 星期${week}`
-
-
-    self.getweather()
+	this.city = remote_ip_info.city; // 设置用户的地理位置,如何获取的请看index.html
+    this.getweather();
   }
 };
 </script>

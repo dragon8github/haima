@@ -7,14 +7,8 @@ Vue.use(VueRouter)
 /*  配置路由规则 */
 const map = [
 
-	/* test 页面 */
-	{path:'/index',redirect: '/'},
-	{path:'/',component:require('./views/test/index')},
-	{path:'/order',component:require('./views/test/order'),children:[{path:'/form',component:require('./views/test/form')}]},			
-	{path:'/card',component:require('./views/test/card')},
-	{path:'/add',component:require('./views/test/add')},
-	{path:'/repay',component:require('./views/test/repay')},
-	{path:'/protocol',component:require('./views/test/protocol')},	
+	/* 主页与重定向 */
+	{path:'/index',redirect: '/'},{path:'/',component:require('./views/index')}, 
 
 	/* 历史上的今天 */ 
 	{path:'/history',component:require('./views/history/index')},
@@ -35,7 +29,14 @@ const map = [
 	{path:'/joke',component:require('./views/joke/index')},
 
 	/* 机器人 */
-	{path:'/robot',component:require('./views/robot/index')}
+	{path:'/robot',component:require('./views/robot/index')},
+
+	/* 微信精选 */
+	{path:'/weixin',component:require('./views/weixin/index')},
+
+	/* 驾证题库 */
+	{path:'/driving',component:require('./views/driving/index')}
+
 ]	
 
 
@@ -46,7 +47,7 @@ const router = new VueRouter({
 })
 
 
-
+/* 暂时没什么用 */
 router.beforeEach((to, from, next) => {
 	//console.log(to,from);
 	next();

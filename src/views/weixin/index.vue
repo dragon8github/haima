@@ -1,22 +1,20 @@
 <template>
 	<div>
 		<header class="mui-bar mui-bar-nav">
-			<button @click="model" class=" mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span>{{ modelName }}</button>
-			<h1 class="mui-title">笑话大全</h1>
+			<h1 class="mui-title">微信精选</h1>
 		</header>
 		<div class="mui-content mui-scroll-wrapper" id="pullrefresh" >
 		  <div class="mui-scroll">
 				<div class="mui-card" v-for="item in items">
-						<div class="mui-card-header mui-card-media" style="">
-						<div class="mui-card-content-inner">
-								<p style="color: #333;">{{ item.content }}</p>
-							</div>
+						<div class="mui-card-header">
+							<img :src="item.firstImg " width="100%" height="100%"  draggable="false"/> 
 						</div>
-						<div class="mui-card-content" v-if="item.url">
-							<img :src=" item.url " width="100%" height="100%"  draggable="false"/> 
+						<div class="mui-card-content-inner">
+							<p></p>
+							<p style="color: #333;">{{ item.title }}</p>
 						</div>
 						<div class="mui-card-footer">
-							Posted on {{ item.updatetime }}
+							<a class="mui-card-link" target="_blank" :href="item.url">Read more</a>
 						</div>
 				</div>
 			</div>
@@ -30,31 +28,27 @@ export default {
     return {	
  		items:[],
  		page :1,
- 		pagesize:5,
+ 		pagesize:10,
  		count:0,
- 		modelName:"图文"
+ 		totalPage:50   
     };
   },
   methods : {
   	 getJoke () {
   	 	let self = this;  	 
-  	 	var model = self.modelName == "图文" ? "pic" : "";	
   	 	$.ajax({
 				type:"get",
-				url:`http://localhost:8090?${model}&page=${self.page}&pagesize=${self.pagesize}`, 
+				url:`http://localhost:8090?page=${self.page}&pagesize=${self.pagesize}`, 
 				success (data) {
-					let json = JSON.parse(data).result.data;
-					self.items = self.items.concat(json);  // 合并并且返回一个新数组
+					let result = JSON.parse(data).result;
+					let list = result.list;
+					let totalPage = result.totalPage;  
+					self.items = self.items.concat(list);  // 合并并且返回一个新数组
 					self.page += 1;				
 					self.count += self.pagesize;
-					mui('#pullrefresh').pullRefresh().endPullupToRefresh(self.count >= 1000);
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(self.count >= self.totalPage);
 				}
 		})
-  	 },
-  	 model () {
-  	 	this.modelName = this.modelName == "图文" ? "文字" : "图文";
-  	 	this.items = [];
-  	 	this.getJoke();	
   	 },
   	 pulldownRefresh () {
   	 	setTimeout(() => {
