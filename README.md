@@ -60,10 +60,10 @@ node xxxx.js
   - 完成了三个app:《笑话大全》，《微信精选》，《机器人自动聊天》
 
   ![](./static/demo_xiaohua.png)
-  ![](./static/demo_jingxuan.png)
+  ![](./static/demo_weixin.png)
   ![](./static/demo_jiqiren.png)
 
 ### 第五天 2016-10-26 星期三
   - 完成了一个app：《驾证考试》
-  
+
   ![](./static/demo_jiazheng.png)
