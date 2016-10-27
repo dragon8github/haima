@@ -2,12 +2,10 @@
 	<header class="app-header mui-navbar-inner mui-bar mui-bar-nav mui-navbar-center">
 			<div class="_effect" :class="{'_effect--50':_decline}">
 				<button type="button" v-show = "_left" class="_leftIco mui-left  mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
-					<router-link :to="backPath" class="mui-icon" :class="_lefticon">
-						
-					</router-link>
+					<router-link :to="backPath" class="mui-icon" :class="_lefticon"></router-link>
 				</button>
 				<h1 class="mui-center mui-title _title" v-text="_title">标题 </h1>
-				<a class="_rightIco mui-icon mui-pull-right"  v-show = "_right" :class="_righticon"></a>
+				<router-link :to="_rightLink" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right"  v-show = "_right" :class="_righticon" v-text="_rightText"></router-link>
 			</div>
 	</header>  
 </template> 
@@ -25,9 +23,13 @@
 			//左边的图标（只能是mui内置的）
 			_lefticon:{type:String,default:"mui-icon-left-nav"},
 			//右边的图标
-			_righticon:{type:String,default:"mui-icon-plusempty"},	
-			//
-			_decline:{type:Boolean,default:false}				
+			_righticon:{type:String,default:""},	
+			//是否绑定退场动画
+			_decline:{type:Boolean,default:false},
+			//右边的文本
+			_rightText:{type:String,default:""},
+			//右边的链接地址
+			_rightLink:{type:String,default:"#"}
 		},
 		computed: {
 		    ...mapGetters([

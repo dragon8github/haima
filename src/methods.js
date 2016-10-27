@@ -1,3 +1,5 @@
+/* 这是路由相关的函数 */
+
 export const beforeEnter = (el) => {
 	 Velocity(el.querySelector("._content"),{translateX: "80%"},0);
      Velocity(el.querySelector("._title"),{translateX: "50%",opacity:0},0);

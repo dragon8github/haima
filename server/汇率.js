@@ -35,7 +35,7 @@ const onRequest = (req, res) => {
             })
             /* 实时汇率查询换算 */
     }
-    elseif(currency != "undefined" && from != "undefined" && to != "undefined") {
+    else if(currency != "undefined" && from != "undefined" && to != "undefined") {
         superagent.get(`http://op.juhe.cn/onebox/exchange/currency?key=${appId}&from=${from}&to=${to}`).end((err, response) => {
             if (err) console.log(err);
             result = response.text;

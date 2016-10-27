@@ -27,8 +27,7 @@ module.exports = {
       'getters':path.resolve(__dirname,'../src/vuex/getters'),
       'actions':path.resolve(__dirname,'../src/vuex/actions'),
       'store':path.resolve(__dirname,'../src/vuex/store'),
-      'methods':path.resolve(__dirname,'../src/methods'),
-
+      'methods':path.resolve(__dirname,'../src/methods')
     }
   },
   resolveLoader: {

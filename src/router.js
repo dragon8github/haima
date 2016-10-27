@@ -35,7 +35,14 @@ const map = [
 	{path:'/weixin',component:require('./views/weixin/index')},
 
 	/* 驾证题库 */
-	{path:'/driving',component:require('./views/driving/index')}
+	{path:'/driving',component:require('./views/driving/index')},
+
+	/* 汇率 */
+	{path:'/exchange',component:require('./views/exchange/index'),
+		children:[{path:'conversion',component:require('./views/exchange/conversion'),
+			children:[{path:"select",component:require('./views/exchange/select')}]
+		}]		
+	}
 
 ]	
 
