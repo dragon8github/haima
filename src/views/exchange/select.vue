@@ -131,6 +131,15 @@
 
 					</ul>
 
+					<div v-for="(val,key) in aa">
+					  
+					<li :data-group="key" class="mui-table-view-divider mui-indexed-list-group">
+						{{ key }}
+						<li class="mui-table-view-cell mui-indexed-list-item" v-for="v in val">{{ v }}</li>
+					</li>
+					
+					</div >
+
 				</div>
 			</div>
 		</div>
@@ -149,6 +158,7 @@ export default {
     	arr : [],
     	en:[],
     	A:[],  	
+    	aa:{a:["澳大利亚","奥林匹克"],b:["贝尔塔猫"]}
     };
   },
   components : {
@@ -163,7 +173,7 @@ export default {
 			success (data) {
 					let list = JSON.parse(data).result.list;
 					self.items = list;
-					console.log(self.items);
+					let i = 0;
 					self.items.map(function(item){
 						let zimu = selectMethods.query(item.name).substr(0,1);
 						if( typeof(self.arr[zimu]) === "undefined" )
@@ -177,7 +187,7 @@ export default {
 							self.arr[zimu] = new_arr;
 						}
 					})
-				console.log(self.arr);
+				// console.log(self.arr);
 				self.en_sort();
 
 			}
@@ -206,9 +216,16 @@ export default {
 		var list = document.getElementById('list');
 		list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
 		window.indexedList = new mui.IndexedList(list);
- 
   	})
 
+  	var a = "A";
+  	var b = "B";
+  	var obj = {};  //a:["奥铃皮卡"],b:["贝尔塔猫"]
+  	obj[a] = ["奥铃皮卡"];
+  	obj[b] = ["贝尔塔猫"];
+  	console.log(obj);
+
+	this.aa = obj;	
 	
   }
 };
