@@ -1,27 +1,30 @@
 <template>
 	<div class="container_inner">
-		<nav-header :_title="'货币转换'" ></nav-header> 
-		<div class="mui-content _content _effect" :class="{'_effect--30':decline}">
-			<form id='login-form' class="mui-input-group">
-				<div class="mui-input-row">
-					<label>金额</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入金额">
+		<div class="container"> 
+			<nav-header :_title="'货币转换'" ></nav-header> 
+			<div class="mui-content _content _effect" :class="{'_effect--30':decline}">
+				<form id='login-form' class="mui-input-group">
+					<div class="mui-input-row">
+						<label>金额</label> 
+						<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入金额">
+					</div>
+					<div class="mui-input-row">
+						<label>手持</label>
+						<input v-model="shouchi" type="text" class="mui-input-clear mui-input" readonly placeholder="请选择持有货币">
+					</div>
+					<div class="mui-input-row">
+						<label>待兑</label>
+						<router-link  to="conversion/select" class="gotoselect"> 
+						<input v-model="daidui" style="padding:0" type="text" class="mui-input-clear mui-input" readonly placeholder="请选择兑换货币"></router-link> 
+					</div>
+					<div class="mui-input-row">
+						<label>结果</label>
+						<input id='password' type="password" class="mui-input-clear mui-input" placeholder="">
+					</div>
+				</form>
+				<div class="mui-content-padded">
+					<button id='login' class="mui-btn mui-btn-block mui-btn-red">计算</button>
 				</div>
-				<div class="mui-input-row">
-					<label>手持</label>
-					<input  type="text" class="mui-input-clear mui-input" readonly placeholder="请选择持有货币">
-				</div>
-				<div class="mui-input-row">
-					<label>待兑</label>
-					<input  type="text" class="mui-input-clear mui-input" readonly placeholder="请选择兑换货币">
-				</div>
-				<div class="mui-input-row">
-					<label>结果</label>
-					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="">
-				</div>
-			</form>
-			<div class="mui-content-padded">
-				<button id='login' class="mui-btn mui-btn-block mui-btn-red">计算</button>
 			</div>
 		</div>
 		<transition name="slide-fade"  v-on:before-enter="beforeEnter"
@@ -34,19 +37,30 @@
 
 <script>
  import navHeader from 'components/navHeader'
- import {beforeEnter,enter,leave} from 'methods'
+ import {beforeEnter,enter,beforeLeave,leave} from 'methods'
 export default {
   data () {
     return {
-		decline:false
+		decline:false,
+		daidui:"",
+		shouchi:""
     };
   },
   methods: {
-  	beforeEnter,enter,leave
+  	beforeEnter,enter,leave,beforeLeave,
+  	set_daidui (v) {
+  		this.daidui(v)
+  	},
+  	set_shouchi (v) {
+  		this.shouchi(v)
+  	},
+  	route_pipe (v) {
+	    this.decline = v;
+    }
   },
   components : {
 	navHeader
-  },
+  },  
   beforeRouteEnter (to, from, next) {
 	next( vm => {
 	vm.$parent.route_pipe(true);
@@ -76,5 +90,5 @@ export default {
 .oauth-area .oauth-btn{display:inline-block;width:50px;height:50px;background-size:30px 30px;background-position:center center;background-repeat:no-repeat;margin:0 20px;border:solid 1px #ddd;border-radius:25px}
 .oauth-area .oauth-btn:active{border:solid 1px #aaa}
 .oauth-area .oauth-btn.disabled{background-color:#ddd}
-
+.gotoselect{ position: absolute; height: 100%; width: 100%; }
 </style>
