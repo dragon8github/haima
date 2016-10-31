@@ -1,8 +1,8 @@
 <template>
 	<div class="container_inner">
-		<div class="container"> 
+		<div class="container _effect" :class="{'_effect--30':decline}"> 
 			<nav-header :_title="'货币转换'" ></nav-header> 
-			<div class="mui-content _content _effect" :class="{'_effect--30':decline}">
+			<div class="mui-content _content " >
 				<form id='login-form' class="mui-input-group">
 					<div class="mui-input-row">
 						<label>金额</label> 
@@ -27,9 +27,11 @@
 				</div>
 			</div>
 		</div>
+			
 		<transition name="slide-fade"  v-on:before-enter="beforeEnter"
 									   v-on:enter="enter"
-									   v-on:leave="leave">
+									   v-on:leave="leave"
+		>
 				<router-view keep-alive></router-view>
 		</transition>
 	</div>
@@ -37,7 +39,7 @@
 
 <script>
  import navHeader from 'components/navHeader'
- import {beforeEnter,enter,beforeLeave,leave} from 'methods'
+ import {beforeEnter,enter,leave} from 'methods'
 export default {
   data () {
     return {
@@ -47,13 +49,16 @@ export default {
     };
   },
   methods: {
-  	beforeEnter,enter,leave,beforeLeave,
+  	beforeEnter,enter,leave,
+
   	set_daidui (v) {
   		this.daidui(v)
   	},
+
   	set_shouchi (v) {
   		this.shouchi(v)
   	},
+
   	route_pipe (v) {
 	    this.decline = v;
     }
@@ -67,8 +72,9 @@ export default {
 	});
   },
   beforeRouteLeave (to, from, next) {
-		this.$parent.route_pipe(false);
-		next();
+  	
+	this.$parent.route_pipe(false);
+	next();
   }
 };
 </script>

@@ -42,7 +42,8 @@
 			
 			<transition name="slide-fade"  v-on:before-enter="beforeEnter"
 										   v-on:enter="enter"
-										   v-on:leave="leave">
+										   v-on:leave="leave"
+			>
 					<router-view keep-alive></router-view>
 			</transition>
 		</div>
@@ -53,7 +54,6 @@
  
  import navHeader from 'components/navHeader'
  import {beforeEnter,enter,leave} from 'methods' 
-
 
 export default {
   data () {
@@ -78,6 +78,7 @@ export default {
 		})
   	},
   	route_pipe (b) {
+  		// alert(b);
 	    this.decline = b;
 	},
   	getImages ( name ) {

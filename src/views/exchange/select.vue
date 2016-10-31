@@ -43,42 +43,59 @@ export default {
   },
   methods: {
   	 getExchange () {
-  	 	let self = this;  	 
-  	 	$.ajax({
-			type:"get",
-			url:`http://localhost:8090?list`, 
-			success (data) {
-				let list = JSON.parse(data).result.list;
-				self.items = list;
-				let i = 0;
-				self.items.map(function(item){
-					//获取首个字母
-					let zimu = selectMethods.query(item.name).substr(0,1);
-					//插入字母索引列表
-					if(self.en.indexOf(zimu) < 0) self.en.push(zimu);
-					// 插入主数据列表
-					if( typeof(self.arr[zimu]) === "undefined" ){						
-						self.arr[zimu] = [item.name + item.code];
-					}else{
-						if(self.arr[zimu].indexOf(item.name + item.code) >=0 ) return false;
-						self.arr[zimu].push(item.name + item.code);
-					}
-				})
-				// 为字母索引列表排序
-				self.en.sort();
+  	 	let self = this;  	
+  	 	if(localStorage.getItem("select")) 
+ 		{
+ 			self.successDone(localStorage.getItem("select"));
+		}
+		else
+		{
+	  	 	$.ajax({
+				type:"get",
+				url:`http://localhost:8090?list`, 
+				success (data) {
+					self.successDone(data);
+			  	}
+			})
+		}
+  	},
+  	successDone (data) {
+  		let self = this; 
 
-				// 为主数据列表排序
-				let new_arr = {};  		
-		  		for(let i in self.en)
-		  		{
-		  			let en = self.en[i];
-		  			new_arr[en] = self.arr[en];
-		  		}
+  		//将数据插入到localStorage中
+  		localStorage.setItem("select",data);
+  		
+  		// 获取并且保存服务器数据
+  		self.items = JSON.parse(data).result.list;
 
-		  		// 将排序好的数组替换主数据源
-		  		self.arr = new_arr;
-		  	}
+  		// 对这些数据进行一些改革
+		self.items.map(function(item){
+			//获取首个字母
+			let zimu = selectMethods.query(item.name).substr(0,1);
+
+			//插入字母索引列表
+			if(self.en.indexOf(zimu) < 0) self.en.push(zimu);
+
+			// 插入主数据列表
+			if( typeof(self.arr[zimu]) === "undefined" ){						
+				self.arr[zimu] = [item.name + item.code];
+			}else{
+				if(self.arr[zimu].indexOf(item.name + item.code) >=0 ) return false;
+				self.arr[zimu].push(item.name + item.code);
+			}
 		})
+
+		// 对字母索引列表【数组】进行排序
+		self.en.sort();
+
+		// 对主数据列表【对象】进行排序
+		let new_arr = {};  				
+  		for(let i in self.en)
+  		{
+  			let en = self.en[i];
+  			new_arr[en] = self.arr[en];
+  		}
+  		self.arr = new_arr;
   	},
   	select_items (e) {
   		this.$parent.shouchi = e.target.innerText;
@@ -87,10 +104,11 @@ export default {
   created () {
  	this.getExchange(); 	
   },
-   beforeRouteEnter (to, from, next) {
+  beforeRouteEnter (to, from, next) {
 	next( vm => {
 		vm.$parent.route_pipe(true);
-
+		
+		/* 进行一些mui操作。 */ 
 		require("js/mui.indexedlist.js")
 		require('css/mui.indexedlist.css') 
 		var header = document.querySelector('header.mui-bar');
@@ -102,9 +120,8 @@ export default {
   },
   beforeRouteLeave (to, from, next) {
 		this.$parent.route_pipe(false);
-		next();
-  }
- 
+		next(); 
+  } 
 };
 </script>
 

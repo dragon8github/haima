@@ -9,13 +9,23 @@
 	height:100%;width:100%;
 }
 
+/* 头部,神坑：background必须是transparent */
+.app-header{
+  height: 45px;
+  width:100%; 
+  background: transparent;
+}
+
+/*
 .slide-fade-enter-active , .slide-fade-leave-active{
   transition: all .35s ease;
 }
 
+
 .slide-fade-enter,.slide-fade-leave-active {
-   opacity: 0
+   opacity: 0;
 } 
+*/
 
 
 ._effect {
@@ -31,4 +41,8 @@
 ._effect--50 {
     opacity: 0;
     transform: translate3d(-50%, 0, 0);
+}
+
+._effect--50 ._leftIco,._effect--50 ._rightIco {
+  opacity: 0;
 }

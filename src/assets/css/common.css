@@ -23,11 +23,7 @@ body,.mui-input-row label,::-webkit-input-placeholder{
 	font-size:35px;
 }
 
-/* 头部 */
-.app-header{
-	height: 45px;
-	width:100%;	
-}
+
 
 /* 头部标签点击没有颜色变化 */
 .mui-bar .mui-icon:active{
