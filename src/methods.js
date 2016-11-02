@@ -18,8 +18,8 @@ export const beforeEnter = (el) => {
 
 // 进入页面时做的一些事情
 export const enter = (el,done) => {
-	Velocity(el.querySelector("._content"),{translateX: "0%"},350,"ease");
-    Velocity(el.querySelector("._title"),{translateX: "0%",opacity:1},350,"ease");
+	Velocity(el.querySelector("._content"),{translateX: "0"},350,"ease");
+    Velocity(el.querySelector("._title"),{translateX: "0",opacity:1},350,"ease");
 	setTimeout(()=> {
 		done();   //神坑，如果不加上这个的话，路由不会停止。一直保持在class-enter-active状态
 	},350) 
@@ -27,10 +27,11 @@ export const enter = (el,done) => {
 
 
 // 离开页面时做的一些事情
-export const leave = (el,done) => { 
-	Velocity(el.querySelector("._content"),{translateX: "100%",opacity:1},350,"ease");
-    Velocity(el.querySelector("._title"),{translateX: "50%",opacity:0},350,"ease");
+export const leave = (el,done) => {  
+	Velocity(el.querySelector("._content"),{translateX: "100%"},3500,"ease");
+    Velocity(el.querySelector("._title"),{translateX: "50%",opacity:0},3500,"ease");
+    Velocity(el.querySelector("._leftIco"),{opacity:0},350);
 	setTimeout(()=> {
 	 	done();  //神坑，如果不加上这个的话，路由不会停止。一直保持在class-leave-active状态,并且不会消失
-	},350)  //等待200毫秒是为了让动画执行结束
+	},3500)  //等待200毫秒是为了让动画执行结束
 }

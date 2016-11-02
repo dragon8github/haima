@@ -66,11 +66,11 @@ router.afterEach((to, from) => {
 	//获取来路(未使用)
     let fromPath = from.path || '/';
     //获取跳转页
-    //let toPath = to.path;
+    let toPath = to.path;
     //获取上一层(有可能为空),这个是为将来区别四大界面的路由使用的
-    //let backPath = toPath.slice(0, toPath.lastIndexOf('/'));
+    let backPath = toPath.slice(0, toPath.lastIndexOf('/')); 
     //调用Vuex
-    store.dispatch('set_back_path', fromPath);
+    store.dispatch('set_back_path', backPath);
 })
 
 
