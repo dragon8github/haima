@@ -11,27 +11,29 @@
 
 // 进入页面之前做的一些准备
 export const beforeEnter = (el) => {
-	 $(el).find("._content").removeClass("_effect");//临时补丁
+	 $(el).find("._content,.app-header ._title").removeClass("_effect");//临时补丁
+
 	 Velocity(el.querySelector("._content"),{translateX: "80%"},0);
-     Velocity(el.querySelector("._title"),{translateX: "50%",opacity:0},0);
+	 Velocity(el.querySelector(".app-header"),{opacity:0},0);
+	 Velocity(el.querySelector(".app-header ._title"),{translateX: "50%"},0);
 } 
 
 // 进入页面时做的一些事情
 export const enter = (el,done) => {
 	Velocity(el.querySelector("._content"),{translateX: "0"},350,"ease");
-    Velocity(el.querySelector("._title"),{translateX: "0",opacity:1},350,"ease");
-	setTimeout(()=> {
-		done();   //神坑，如果不加上这个的话，路由不会停止。一直保持在class-enter-active状态
-	},350) 
+	Velocity(el.querySelector(".app-header"),{opacity: "1"},350,"ease");
+	Velocity(el.querySelector(".app-header ._title"),{translateX: "0%"},350,"ease");
+	
 }
 
 
 // 离开页面时做的一些事情
 export const leave = (el,done) => {  
-	Velocity(el.querySelector("._content"),{translateX: "100%"},3500,"ease");
-    Velocity(el.querySelector("._title"),{translateX: "50%",opacity:0},3500,"ease");
-    Velocity(el.querySelector("._leftIco"),{opacity:0},350);
+	Velocity(el.querySelector("._content"),{translateX: "100%"},350,"ease");
+	Velocity(el.querySelector(".app-header"),{opacity: "0"},350,"ease");   
+	 Velocity(el.querySelector(".app-header ._title"),{translateX: "50%"},350,"ease");
+
 	setTimeout(()=> {
 	 	done();  //神坑，如果不加上这个的话，路由不会停止。一直保持在class-leave-active状态,并且不会消失
-	},3500)  //等待200毫秒是为了让动画执行结束
+	},350)  //等待200毫秒是为了让动画执行结束
 }
